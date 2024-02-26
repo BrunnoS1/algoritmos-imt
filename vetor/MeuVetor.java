@@ -2,6 +2,19 @@ public class MeuVetor {
     private int[] v;
     private int ultimaPos;
 
+    @Override
+    public String toString() {
+        String s = "";
+        if (estaVazio()) {
+            s = s + "vetor vazio";
+        } else {
+            for (int i = 0; i <= ultimaPos; i++) {
+                s += v[i] + " ";
+            }
+        }
+        return s + "\n";
+    }
+
     public MeuVetor(int capacidade) {
         v = new int[capacidade];
         ultimaPos = -1;
@@ -41,25 +54,27 @@ public class MeuVetor {
     }
 
     // metodo para inserir elemento
-    public boolean adiciona(int elemento) {
-        if (estaCheio()) {
-            return false;
-        }
-        ultimaPos++;
-        v[ultimaPos] = elemento;
-        return true;
-    }
+    // public boolean adiciona(int elemento) {
+    //     if (estaCheio()) {
+    //         return false;
+    //     }
+    //     ultimaPos++;
+    //     v[ultimaPos] = elemento;
+    //     return true;
+    // }
 
-    @Override
-    public String toString() {
-        String s = "";
-        if (estaVazio()) {
-            s = s + "vetor vazio";
-        } else {
-            for (int i = 0; i <= ultimaPos; i++) {
-                s += v[i] + " ";
+    public void adiciona (int elemento) {
+        if (estaCheio()) {
+            int[] temp = new int[v.length*2];
+            for (int i = 0; i <= ultimaPos; i++){
+                temp[i] = v[i];
             }
+            v = temp;
+            System.out.println("vetor = " + this);
+            System.out.println("vetor aumentado");
         }
-        return s + "\n";
+        // ultimaPos++;
+        // v[ultimaPos] = elemento;
+        v[++ultimaPos] = elemento;
     }
 }
