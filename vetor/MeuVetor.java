@@ -64,7 +64,7 @@ public class MeuVetor {
     public int remove() {
         if (estaVazio()) return 0;
         int aux = v[ultimaPos--];
-        if (ultimaPos <= v.length / 4) {
+        if (v.length >= 10 && ultimaPos <= v.length / 4) {
             redimensiona(v.length/2);
         }
         return aux;

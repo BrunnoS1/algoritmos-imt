@@ -11,19 +11,23 @@ public class Teste1 {
         // System.out.println(v1);
 
         // if(v1.adiciona(4)){
-        //     System.out.println("Adicionou com sucesso");
+        // System.out.println("Adicionou com sucesso");
         // } else{
-        //     System.out.println("Falha em adicionar, vetor cheio");
+        // System.out.println("Falha em adicionar, vetor cheio");
         // };
         // System.out.println(v1);
 
-        for (int n=1; n <= 100; n++){
+        for (int n = 1; n <= 100; n++) {
             v1.adiciona(n);
             System.out.println("n = " + n + ", tamanho do vetor = " + v1.getV().length);
         }
         System.out.println("\n\n");
-        while(!v1.estaVazio()) {
+        while (!v1.estaVazio()) {
             System.out.println(v1.remove() + " saiu da lista, capacidade atual = " + v1.getV().length);
+        }
+        for (int n = 1; n <= 32; n++) {
+            v1.adiciona(n);
+            System.out.println("n = " + n + ", tamanho do vetor = " + v1.getV().length);
         }
     }
 }
