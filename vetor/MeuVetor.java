@@ -2,19 +2,6 @@ public class MeuVetor {
     private int[] v;
     private int ultimaPos;
 
-    @Override
-    public String toString() {
-        String s = "";
-        if (estaVazio()) {
-            s = s + "vetor vazio";
-        } else {
-            for (int i = 0; i <= ultimaPos; i++) {
-                s += v[i] + " ";
-            }
-        }
-        return s + "\n";
-    }
-
     public MeuVetor(int capacidade) {
         v = new int[capacidade];
         ultimaPos = -1;
@@ -55,21 +42,17 @@ public class MeuVetor {
 
     // metodo para inserir elemento
     // public boolean adiciona(int elemento) {
-    //     if (estaCheio()) {
-    //         return false;
-    //     }
-    //     ultimaPos++;
-    //     v[ultimaPos] = elemento;
-    //     return true;
+    // if (estaCheio()) {
+    // return false;
+    // }
+    // ultimaPos++;
+    // v[ultimaPos] = elemento;
+    // return true;
     // }
 
-    public void adiciona (int elemento) {
+    public void adiciona(int elemento) {
         if (estaCheio()) {
-            int[] temp = new int[v.length*2];
-            for (int i = 0; i <= ultimaPos; i++){
-                temp[i] = v[i];
-            }
-            v = temp;
+            redimensiona(v.length*2);
             System.out.println("vetor = " + this);
             System.out.println("vetor aumentado");
         }
@@ -77,8 +60,34 @@ public class MeuVetor {
         // v[ultimaPos] = elemento;
         v[++ultimaPos] = elemento;
     }
-    
-    // public int remove() {
 
-    // }
+    public int remove() {
+        if (estaVazio()) return 0;
+        int aux = v[ultimaPos--];
+        if (ultimaPos <= v.length / 4) {
+            redimensiona(v.length/2);
+        }
+        return aux;
+    }
+
+    private void redimensiona(int novaCapacidade) {
+        int[] temp = new int[novaCapacidade];
+        for (int i = 0; i <= ultimaPos; i++) {
+            temp[i] = v[i];
+        }
+        v = temp;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        if (estaVazio()) {
+            s = s + "vetor vazio";
+        } else {
+            for (int i = 0; i <= ultimaPos; i++) {
+                s += v[i] + " ";
+            }
+        }
+        return s + "\n";
+    }
 }

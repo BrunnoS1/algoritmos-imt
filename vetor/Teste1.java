@@ -21,6 +21,9 @@ public class Teste1 {
             v1.adiciona(n);
             System.out.println("n = " + n + ", tamanho do vetor = " + v1.getV().length);
         }
-        System.out.println("vetor fim do código = " + v1);
+        System.out.println("\n\n");
+        while(!v1.estaVazio()) {
+            System.out.println(v1.remove() + " saiu da lista, capacidade atual = " + v1.getV().length);
+        }
     }
 }
