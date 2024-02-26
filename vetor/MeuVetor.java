@@ -77,4 +77,8 @@ public class MeuVetor {
         // v[ultimaPos] = elemento;
         v[++ultimaPos] = elemento;
     }
+    
+    // public int remove() {
+
+    // }
 }
