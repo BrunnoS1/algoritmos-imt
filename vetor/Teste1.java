@@ -25,6 +25,7 @@ public class Teste1 {
         while (!v1.estaVazio()) {
             System.out.println(v1.remove() + " saiu da lista, capacidade atual = " + v1.getV().length);
         }
+        System.out.println("\n\n");
         for (int n = 1; n <= 32; n++) {
             v1.adiciona(n);
             System.out.println("n = " + n + ", tamanho do vetor = " + v1.getV().length);

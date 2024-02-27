@@ -1,9 +1,11 @@
+import java.util.Random;
+
 public class MeuVetor {
-    private int[] v;
+    private double[] v;
     private int ultimaPos;
 
     public MeuVetor(int capacidade) {
-        v = new int[capacidade];
+        v = new double[capacidade];
         ultimaPos = -1;
     }
 
@@ -12,7 +14,7 @@ public class MeuVetor {
         return ultimaPos;
     }
 
-    public int[] getV() {
+    public double[] getV() {
         return v;
     }
 
@@ -50,7 +52,20 @@ public class MeuVetor {
     // return true;
     // }
 
+    // adicionar int
     public void adiciona(int elemento) {
+        if (estaCheio()) {
+            redimensiona(v.length*2);
+            System.out.println("vetor = " + this);
+            System.out.println("vetor aumentado");
+        }
+        // ultimaPos++;
+        // v[ultimaPos] = elemento;
+        v[++ultimaPos] = elemento;
+    }
+
+    // adicionar double
+    public void adiciona(double elemento) {
         if (estaCheio()) {
             redimensiona(v.length*2);
             System.out.println("vetor = " + this);
@@ -63,7 +78,8 @@ public class MeuVetor {
 
     public int remove() {
         if (estaVazio()) return 0;
-        int aux = v[ultimaPos--];
+        int aux = (int) v[ultimaPos--];
+        // atribui v[ultimaPos] depois subtrai 1 de ultimaPos
         if (v.length >= 10 && ultimaPos <= v.length / 4) {
             redimensiona(v.length/2);
         }
@@ -71,11 +87,18 @@ public class MeuVetor {
     }
 
     private void redimensiona(int novaCapacidade) {
-        int[] temp = new int[novaCapacidade];
+        double[] temp = new double[novaCapacidade];
         for (int i = 0; i <= ultimaPos; i++) {
             temp[i] = v[i];
         }
         v = temp;
+    }
+
+    public void preencheVetor(){
+        Random r = new Random();
+        for(int i = 0; i <= v.length-1; i++){
+            adiciona(r.nextInt());
+        }
     }
 
     @Override
@@ -85,7 +108,7 @@ public class MeuVetor {
             s = s + "vetor vazio";
         } else {
             for (int i = 0; i <= ultimaPos; i++) {
-                s += v[i] + " ";
+                s += String.format("%.0f", v[i]) + " ";
             }
         }
         return s + "\n";
