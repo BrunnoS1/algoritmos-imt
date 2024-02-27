@@ -97,7 +97,7 @@ public class MeuVetor {
     public void preencheVetor(){
         Random r = new Random();
         for(int i = 0; i <= v.length-1; i++){
-            adiciona(r.nextInt());
+            adiciona(r.nextInt(60)+1);
         }
     }
 
