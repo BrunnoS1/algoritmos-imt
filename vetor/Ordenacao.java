@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Scanner;
 
 public class Ordenacao {
@@ -10,11 +11,17 @@ public class Ordenacao {
         while (tamanho > 0) {
             v1 = new MeuVetor(tamanho);
             v1.preencheVetor();
-            System.out.println("vetor gerado :\n" + v1);
-            v1.bubblesort();
-            System.out.println("vetor ordenado :\n" + v1);
+            // System.out.println("vetor gerado :\n" + v1);
 
-            System.out.print("Digite o tamanho do novo vetor, 0 encerra: ");
+            long inicio = new Date().getTime();
+            int comparacoes = v1.bubblesort();
+            long fim = new Date().getTime();
+
+            // System.out.println("vetor ordenado :\n" + v1);
+            // System.out.println("Numero de comparacoes = " + comparacoes);
+            System.out.println("Tamanho = " + tamanho + "\nDemorou = " + (fim - inicio) + "ms");
+
+            System.out.print("\nDigite o tamanho do novo vetor, 0 encerra: ");
             tamanho = sc.nextInt();
         }
         sc.close();

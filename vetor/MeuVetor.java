@@ -111,22 +111,24 @@ public class MeuVetor {
         }
     }
 
-    public void bubblesort() {
+    public int bubblesort() {
+        int cont = 0;
         for (int i = 1; i < v.length; i++) {
-            for (int j = 0; j < v.length-1; j++) {
-                if ( v[j] > v[j + 1]) {
+            for (int j = 0; j < v.length-i; j++) {
+                if ( v[j] < v[j + 1]) {
                     // usando + memoria
                     double aux = v[j];
                     v[j] = v[j+1];
                     v[j+1] = aux;
-
                     // usando + processamento
                     // v[j] = v[j] + v[j+1]; // 5 + 3 = 8
                     // v[j+1] = v[j] - v[j+1]; // 8 - 3 = 5
                     // v[j] = v[j] - v[j+1]; // 8 - 5 = 3
                 }
+                cont++;
             }
         }
+        return cont;
     }
 
     public void insertionSort() {
