@@ -114,12 +114,13 @@ public class MeuVetor {
     public int bubblesort() {
         int cont = 0;
         for (int i = 1; i < v.length; i++) {
-            for (int j = 0; j < v.length-i; j++) {
-                if ( v[j] < v[j + 1]) {
+            for (int j = 0; j < v.length - i; j++) {
+                if (v[j] < v[j + 1]) {
                     // usando + memoria
                     double aux = v[j];
-                    v[j] = v[j+1];
-                    v[j+1] = aux;
+                    v[j] = v[j + 1];
+                    v[j + 1] = aux;
+
                     // usando + processamento
                     // v[j] = v[j] + v[j+1]; // 5 + 3 = 8
                     // v[j+1] = v[j] - v[j+1]; // 8 - 3 = 5
@@ -131,12 +132,43 @@ public class MeuVetor {
         return cont;
     }
 
-    public void insertionSort() {
+    public int insertionSort() {
+        // cont = contador de comparacoes
+        int cont = 0;
+        for (int i = 0; i < v.length; i++) {
+            double elemento = v[i];
+            int j = i - 1;
 
+            while (j >= 0 && v[j] > elemento) {
+                v[j + 1] = v[j];
+                j--;
+                cont++;
+            }
+
+            v[j + 1] = elemento;
+        }
+        return cont;
     }
 
-    public void selectionSort() {
+    public int selectionSort() {
+        // cont = contador de comparacoes
+        int cont = 0;
+        for (int i = 0; i < v.length; i++) {
+            int indice_minimo = i;
+            for (int j = i + 1; j < v.length; j++) {
+                if (v[j] < v[indice_minimo]) {
+                    indice_minimo = j;
+                }
+                cont++;
+            }
 
+            if (indice_minimo != i) {
+                double temp = v[i];
+                v[i] = v[indice_minimo];
+                v[indice_minimo] = temp;
+            }
+        }
+        return cont;
     }
 
     @Override
