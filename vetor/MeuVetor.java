@@ -55,7 +55,7 @@ public class MeuVetor {
     // adicionar int
     public void adiciona(int elemento) {
         if (estaCheio()) {
-            redimensiona(v.length*2);
+            redimensiona(v.length * 2);
             System.out.println("vetor = " + this);
             System.out.println("vetor aumentado");
         }
@@ -67,7 +67,7 @@ public class MeuVetor {
     // adicionar double
     public void adiciona(double elemento) {
         if (estaCheio()) {
-            redimensiona(v.length*2);
+            redimensiona(v.length * 2);
             System.out.println("vetor = " + this);
             System.out.println("vetor aumentado");
         }
@@ -77,28 +77,64 @@ public class MeuVetor {
     }
 
     public int remove() {
-        if (estaVazio()) return 0;
+        if (estaVazio())
+            return 0;
         int aux = (int) v[ultimaPos--];
         // atribui v[ultimaPos] depois subtrai 1 de ultimaPos
         if (v.length >= 10 && ultimaPos <= v.length / 4) {
-            redimensiona(v.length/2);
+            redimensiona(v.length / 2);
         }
         return aux;
     }
 
     private void redimensiona(int novaCapacidade) {
-        double[] temp = new double[novaCapacidade];
+        double[] aux = new double[novaCapacidade];
         for (int i = 0; i <= ultimaPos; i++) {
-            temp[i] = v[i];
+            aux[i] = v[i];
         }
-        v = temp;
+        v = aux;
     }
 
-    public void preencheVetor(){
+    public void preencheVetor() {
+        // preenche com numeros aleatorios
         Random r = new Random();
-        for(int i = 0; i <= v.length-1; i++){
-            adiciona(r.nextInt(60)+1);
+        for (int i = 0; i <= v.length - 1; i++) {
+            adiciona(r.nextInt(v.length * 10) + 1);
         }
+    }
+
+    public void preencheVetor(int limite) {
+        // preenche com numeros aleatorios
+        Random r = new Random();
+        for (int i = 0; i < v.length - 1; i++) {
+            adiciona(r.nextInt(limite) + 1);
+        }
+    }
+
+    public void bubblesort() {
+        for (int i = 1; i < v.length; i++) {
+            for (int j = 0; j < v.length-1; j++) {
+                if ( v[j] > v[j + 1]) {
+                    // usando + memoria
+                    double aux = v[j];
+                    v[j] = v[j+1];
+                    v[j+1] = aux;
+
+                    // usando + processamento
+                    // v[j] = v[j] + v[j+1]; // 5 + 3 = 8
+                    // v[j+1] = v[j] - v[j+1]; // 8 - 3 = 5
+                    // v[j] = v[j] - v[j+1]; // 8 - 5 = 3
+                }
+            }
+        }
+    }
+
+    public void insertionSort() {
+
+    }
+
+    public void selectionSort() {
+
     }
 
     @Override
