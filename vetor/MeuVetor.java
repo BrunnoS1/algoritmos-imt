@@ -183,6 +183,27 @@ public class MeuVetor {
         return r;
     }
 
+    public Retorno buscaBinaria(double x) {
+        Retorno r = new Retorno();
+        int inicio = 0;
+        int fim = v.length - 1;
+        int meio;
+        while (inicio <= fim) {
+            meio = (inicio + fim) / 2;
+            r.incrementaContador();
+            if (v[meio] == x) {
+                r.setAchou(true);
+                return r;
+            }
+            if (x > v[meio]) {
+                inicio = meio + 1;
+            } else {
+                fim = meio - 1;
+            }
+        }
+        return r;
+    }
+
     @Override
     public String toString() {
         String s = "";
