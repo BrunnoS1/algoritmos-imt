@@ -171,6 +171,18 @@ public class MeuVetor {
         return cont;
     }
 
+    public Retorno buscaSimples(double x) {
+        Retorno r = new Retorno();
+        for (int i = 0; i < v.length; i++) {
+            r.incrementaContador();
+            if (x == v[i]) {
+                r.setAchou(true);
+                return r;
+            }
+        }
+        return r;
+    }
+
     @Override
     public String toString() {
         String s = "";
