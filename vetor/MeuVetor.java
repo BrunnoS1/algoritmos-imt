@@ -47,7 +47,6 @@ public class MeuVetor {
         if (estaCheio()) {
             redimensiona(v.length * 2);
             System.out.println("vetor = " + this);
-            System.out.println("vetor aumentado");
         }
         // ultimaPos++;
         // v[ultimaPos] = elemento;
@@ -83,7 +82,8 @@ public class MeuVetor {
     }
 
     public double remove() {
-        if (estaVazio()) return 0;
+        if (estaVazio())
+            return 0;
         double aux = v[ultimaPos--];
         // atribui v[ultimaPos] depois subtrai 1 de ultimaPos
         if (v.length >= 10 && ultimaPos <= v.length / 4) {
@@ -93,12 +93,14 @@ public class MeuVetor {
     }
 
     public double remove(int pos) {
-        if (estaVazio() || pos > ultimaPos || pos < 0) return 0;
-        if (pos == ultimaPos) return remove();
+        if (estaVazio() || pos > ultimaPos || pos < 0)
+            return 0;
+        if (pos == ultimaPos)
+            return remove();
         double aux = v[pos];
         int i;
         for (i = pos; i < ultimaPos; i++) {
-            v[i] = v[i+1];
+            v[i] = v[i + 1];
         }
         if (v.length >= 10 && --ultimaPos <= v.length / 4) {
             redimensiona(v.length / 2);
@@ -106,14 +108,67 @@ public class MeuVetor {
         return aux;
     }
 
-    public boolean remove(double elemento) {
-        //remove a primeira ocorrencia do elemento e devolve sucesso ou fracasso
-        return true;
+    public boolean removeBool(double elemento) {
+        // remove a primeira ocorrencia do elemento e devolve sucesso ou fracasso
+        if (estaVazio()) return false;
+        for (int i = 0; i < v.length; i++) {
+            if (v[i] == elemento) {
+                if (i == ultimaPos) v[i] = 0;
+                else{
+                    for (int j = i; j < v.length-1; j++) {
+                        v[j] = v[j+1];
+                    }
+                }
+                if (v.length >= 10 && --ultimaPos <= v.length / 4) {
+                    redimensiona(v.length / 2);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeOrdenado(double elemento) {
+        // usa busca binaria pra remover (precisa estar ordenado)
+        if (estaVazio()) return false;
+        Retorno r = new Retorno();
+        r = buscaBinaria(elemento);
+        if (r.getAchou()) {
+            int i;
+            for (i = r.getIndice(); i < v.length-1; i++) {
+                v[i] = v[i+1];
+                if (v.length >= 10 && --ultimaPos <= v.length / 4) {
+                    redimensiona(v.length / 2);
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public int removeAll(double elemento) {
-        //remove todas as ocorrencias do elemento e devolve quantos foram removidos
-        return 0;
+        // remove todas as ocorrencias do elemento e devolve quantos foram removidos
+        int contador = 0;
+        if (estaVazio()) return 0;
+        for (int i = 0; i < v.length; i++) {
+            if (v[i] == elemento) {
+                contador ++;
+                if (i == ultimaPos) v[i] = 0;
+                else{
+                    for (int j = i; j < v.length-1; j++) {
+                        v[j] = v[j+1];
+                    }
+                }
+                i--;
+                ultimaPos--;
+            }
+        }
+        if (v.length >= 10 && ultimaPos <= v.length / 4) {
+            redimensiona(v.length / 2);
+        }
+        return contador;
     }
 
     private void redimensiona(int novaCapacidade) {
@@ -222,6 +277,7 @@ public class MeuVetor {
             r.incrementaContador();
             if (v[meio] == x) {
                 r.setAchou(true);
+                r.setIndice(meio);
                 return r;
             }
             if (x > v[meio]) {

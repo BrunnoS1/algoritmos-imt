@@ -1,6 +1,7 @@
 public class Retorno {
-    int contador;
-    boolean achou;
+    private int contador;
+    private boolean achou;
+    private int indice;
 
     // metodos de acesso
     public int getContador() {
@@ -11,6 +12,10 @@ public class Retorno {
         return achou;
     }
 
+    public int getIndice() {
+        return indice;
+    }
+
     public void setContador(int contador) {
         this.contador = contador;
     }
@@ -19,7 +24,14 @@ public class Retorno {
         this.achou = achou;
     }
 
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
     public void incrementaContador() {
         contador++;
+    }
+    public void incrementaIndice() {
+        indice++;
     }
 }

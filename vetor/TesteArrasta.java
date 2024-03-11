@@ -13,5 +13,7 @@ public class TesteArrasta {
         System.out.println(v1);
 
         v1.remove(3);
+
+        System.out.println("removeBool = " + v1.removeOrdenado(3));
     }
 }
