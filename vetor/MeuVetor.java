@@ -42,16 +42,6 @@ public class MeuVetor {
         ultimaPos = -1;
     }
 
-    // metodo para inserir elemento
-    // public boolean adiciona(int elemento) {
-    // if (estaCheio()) {
-    // return false;
-    // }
-    // ultimaPos++;
-    // v[ultimaPos] = elemento;
-    // return true;
-    // }
-
     // adicionar int
     public void adiciona(int elemento) {
         if (estaCheio()) {
@@ -64,27 +54,66 @@ public class MeuVetor {
         v[++ultimaPos] = elemento;
     }
 
-    // adicionar double
+    // adicionar double no final
     public void adiciona(double elemento) {
         if (estaCheio()) {
             redimensiona(v.length * 2);
-            System.out.println("vetor = " + this);
-            System.out.println("vetor aumentado");
         }
         // ultimaPos++;
         // v[ultimaPos] = elemento;
         v[++ultimaPos] = elemento;
     }
 
-    public int remove() {
-        if (estaVazio())
-            return 0;
-        int aux = (int) v[ultimaPos--];
+    public void adiciona(double elemento, int posicao) {
+        if (estaCheio()) {
+            redimensiona(v.length * 2);
+        }
+        if (posicao > ultimaPos) {
+            // adiciona no final
+            adiciona(elemento);
+        } else {
+            // precisa arrastar
+            int i;
+            for (i = ultimaPos + 1; i > posicao; i--) {
+                v[i] = v[i - 1];
+            }
+            v[i] = elemento;
+            ultimaPos++;
+        }
+    }
+
+    public double remove() {
+        if (estaVazio()) return 0;
+        double aux = v[ultimaPos--];
         // atribui v[ultimaPos] depois subtrai 1 de ultimaPos
         if (v.length >= 10 && ultimaPos <= v.length / 4) {
             redimensiona(v.length / 2);
         }
         return aux;
+    }
+
+    public double remove(int pos) {
+        if (estaVazio() || pos > ultimaPos || pos < 0) return 0;
+        if (pos == ultimaPos) return remove();
+        double aux = v[pos];
+        int i;
+        for (i = pos; i < ultimaPos; i++) {
+            v[i] = v[i+1];
+        }
+        if (v.length >= 10 && --ultimaPos <= v.length / 4) {
+            redimensiona(v.length / 2);
+        }
+        return aux;
+    }
+
+    public boolean remove(double elemento) {
+        //remove a primeira ocorrencia do elemento e devolve sucesso ou fracasso
+        return true;
+    }
+
+    public int removeAll(double elemento) {
+        //remove todas as ocorrencias do elemento e devolve quantos foram removidos
+        return 0;
     }
 
     private void redimensiona(int novaCapacidade) {
@@ -115,7 +144,7 @@ public class MeuVetor {
         int cont = 0;
         for (int i = 1; i < v.length; i++) {
             for (int j = 0; j < v.length - i; j++) {
-                if (v[j] < v[j + 1]) {
+                if (v[j] > v[j + 1]) {
                     // usando + memoria
                     double aux = v[j];
                     v[j] = v[j + 1];
