@@ -289,6 +289,44 @@ public class MeuVetor {
         return r;
     }
 
+    public Retorno encontraMaior(){
+        Retorno retorno =new Retorno();
+
+        if (estaVazio()){
+            retorno.setAchou(false);
+            retorno.setCont(0);
+            return retorno;
+
+        }
+        double maior=v[0];
+        for (int i =0;i<=ultimaPos;i++){
+            if(v[i]>maior){
+                maior=v[i];
+            }
+        }
+        retorno.setAchou(true);
+        retorno.setValor(maior);
+        return retorno;
+    }
+
+    public boolean removeMaior() {
+        if (estaVazio()) return false;
+
+        double maior=v[0];
+        int indice = 0;
+        for (int i =0;i<=ultimaPos;i++){
+            if(v[i]>maior){
+                maior=v[i];
+                indice = i;
+            }
+        }
+        for (int i = indice; i < ultimaPos; i++) {
+            v[i] = v[i+1];
+        }
+        v[ultimaPos--] = 0;
+        return true;
+    }
+
     @Override
     public String toString() {
         String s = "";

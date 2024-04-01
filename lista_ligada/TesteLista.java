@@ -1,6 +1,6 @@
 public class TesteLista {
     public static void main(String[] args) {
-        Lista lista = new Lista();
+        ListaComUltimo lista = new ListaComUltimo();
         System.out.println("Lista instanciada\n" + lista);
         for (int i = 1; i < 6; i++) {
             lista.insereInicio(i*10);
