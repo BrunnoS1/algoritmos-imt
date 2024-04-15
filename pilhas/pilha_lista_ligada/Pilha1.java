@@ -1,4 +1,4 @@
-public class Pilha {
+public class Pilha1 {
     private No topo;
 
     public boolean estaVazia() {

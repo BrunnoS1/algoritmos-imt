@@ -1,8 +1,8 @@
-public class No<Info> {
+public class Node<Info> {
     private Info info;
-    private No proximo;
+    private Node<Info> proximo;
 
-    public No (Info info) {
+    public Node (Info info) {
         this.info=info;
         this.proximo=null;
     }
@@ -11,7 +11,7 @@ public class No<Info> {
         return info;
     }
 
-    public No getProximo() {
+    public Node<Info> getProximo() {
         return proximo;
     }
 
@@ -19,7 +19,7 @@ public class No<Info> {
         this.info = info;
     }
 
-    public void setProximo(No proximo) {
+    public void setProximo(Node<Info> proximo) {
         this.proximo = proximo;
     }
 
