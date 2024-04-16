@@ -58,6 +58,51 @@ public class Lista {
         return i;
     }
 
+    public Retorno encontraMaior(){
+        Retorno retorno = new Retorno();
+
+        if (estaVazia()){
+            retorno.setAchou(false);
+            retorno.setCont(0);
+            return retorno;
+
+        }
+        int maior=primeiro.getInfo();
+        No aux = primeiro;
+        while (aux != null) {
+            if (aux.getInfo() > maior) {
+                maior = aux.getInfo();
+            }
+            aux = aux.getProximo();
+        }
+        retorno.setAchou(true);
+        retorno.setValor(maior);
+        return retorno;
+    }
+
+    public boolean removeMaior() {
+        if (estaVazia()) return false;
+        No anterior = primeiro;
+        No maior = primeiro;
+        No ant_aux = primeiro; //sempre anterior ao aux
+        No aux = primeiro.getProximo();
+
+        while (aux != null) {
+            if (aux.getInfo() > maior.getInfo()) {
+                maior = aux;
+                anterior = ant_aux;
+            }
+            ant_aux = ant_aux.getProximo();
+            aux = aux.getProximo();
+        }
+        if(maior == primeiro) {
+            primeiro = primeiro.getProximo();
+            return true;
+        }
+        anterior.setProximo(anterior.getProximo().getProximo());
+        return true;
+    }
+
     @Override
     public String toString() {
         String s = "lista: ";
