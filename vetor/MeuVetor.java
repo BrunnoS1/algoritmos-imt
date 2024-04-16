@@ -46,10 +46,7 @@ public class MeuVetor {
     public void adiciona(int elemento) {
         if (estaCheio()) {
             redimensiona(v.length * 2);
-            System.out.println("vetor = " + this);
         }
-        // ultimaPos++;
-        // v[ultimaPos] = elemento;
         v[++ultimaPos] = elemento;
     }
 
