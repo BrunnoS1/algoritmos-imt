@@ -89,6 +89,7 @@ Por etapas:
 
 ### Algoritmo partition
 ```java
+// Java
 public int partition(double[] A, int p, int r) {
     double x = A[r]; // O pivô é o último elemento do vetor 
     int i = p-1;
