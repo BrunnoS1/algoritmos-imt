@@ -62,12 +62,12 @@ public class ABB {
         return alturaRec(raiz);
     }
 
-    private int alturaRec (No atual) {
-        if (atual.getEsquerda() == null && atual.getDireita()==null) //não tem filhos
-            return 0; 
+    private int alturaRec(No atual) {
+        if (atual.getEsquerda() == null && atual.getDireita() == null) // não tem filhos
+            return 0;
         int alturaDir = 0;
         int alturaEsq = 0;
-        if (atual.getEsquerda() != null) 
+        if (atual.getEsquerda() != null)
             alturaEsq = alturaRec(atual.getEsquerda());
         if (atual.getDireita() != null)
             alturaDir = alturaRec(atual.getDireita());
@@ -75,8 +75,9 @@ public class ABB {
     }
 
     public No menorElemento() {
-        // menor sempre o mais a esquerda nessa implementacao 
-        if (estaVazia()) return null;
+        // menor sempre o mais a esquerda nessa implementacao
+        if (estaVazia())
+            return null;
         No menor = raiz;
         while (menor.getEsquerda() != null) {
             menor = menor.getEsquerda();
@@ -86,43 +87,53 @@ public class ABB {
 
     public No maiorElemento() {
         // maior sempre o mais a direita nessa implementacao
-        if (estaVazia()) return null;
+        if (estaVazia())
+            return null;
         No maior = raiz;
         while (maior.getDireita() != null) {
             maior = maior.getDireita();
         }
-        return maior;   
+        return maior;
     }
 
-    public int numeroFolhas () {
-        if (estaVazia()) return 0;
-        return numeroFolhasRec (raiz);
+    public int numeroFolhas() {
+        if (estaVazia())
+            return 0;
+        return numeroFolhasRec(raiz);
     }
-    private int numeroFolhasRec (No atual) {
-        if (atual == null) return 0;
-        if (atual.getDireita() == null && atual.getEsquerda() == null) return 1;
+
+    private int numeroFolhasRec(No atual) {
+        if (atual == null)
+            return 0;
+        if (atual.getDireita() == null && atual.getEsquerda() == null)
+            return 1;
         return numeroFolhasRec(atual.getDireita()) + numeroFolhasRec(atual.getEsquerda());
     }
 
-    public boolean existe (int x) {
-        if (estaVazia()) return false;
-        return existeRec (x, raiz);
+    public boolean existe(int x) {
+        if (estaVazia())
+            return false;
+        return existeRec(x, raiz);
     }
 
-    private boolean existeRec (int x, No atual) {
-        if (atual == null) return false;
-        if (x == atual.getInfo()) return true;
-        if (x < atual.getInfo()) return existeRec (x, atual.getEsquerda());
+    private boolean existeRec(int x, No atual) {
+        if (atual == null)
+            return false;
+        if (x == atual.getInfo())
+            return true;
+        if (x < atual.getInfo())
+            return existeRec(x, atual.getEsquerda());
         return existeRec(x, atual.getDireita());
     }
 
     public int proximo(int x) {
-        if (estaVazia()) return -1;
+        if (estaVazia())
+            return -1;
         ArrayList<Integer> lista = new ArrayList<>();
-        linearizaRec(lista,raiz);
+        linearizaRec(lista, raiz);
         int posicao = lista.indexOf(x);
 
-        return posicao == lista.size()-1? -1: lista.get(posicao+1);
+        return posicao == lista.size() - 1 ? -1 : lista.get(posicao + 1);
     }
 
     private void linearizaRec(ArrayList<Integer> lista, No atual) {
@@ -132,4 +143,82 @@ public class ABB {
             linearizaRec(lista, atual.getDireita());
         }
     }
+
+    public boolean removeElemento (int x) {
+        if (estaVazia()) return false;
+        return removeElementoRec(x, raiz, null, false);
+    }
+    boolean removeElementoRec (int x, No atual, No pai, boolean eFilhoEsquerdo) {
+        if (atual != null) {
+            if (x == atual.getInfo()) {
+                if (atual.getEsquerda() == null && atual.getDireita() == null) {
+                    //não tem filhos
+                    if (atual == raiz) {
+                        raiz = null;
+                    }
+                    else if (eFilhoEsquerdo) {
+                        pai.setEsquerda(null);
+                    }
+                    else {
+                        pai.setDireita(null);
+                    }
+                }
+                else if (atual.getDireita() == null) {
+                    //só tem filho esquerdo
+                    if (atual == raiz) {
+                        raiz = atual.getEsquerda();
+                    }
+                    else if (eFilhoEsquerdo) {
+                        pai.setEsquerda(atual.getEsquerda());
+                    }
+                    else {
+                        pai.setDireita(atual.getEsquerda());
+                    }
+                }
+                else if (atual.getEsquerda() == null) {
+                    //só tem filho direito
+                    if (atual == raiz) {
+                        raiz = atual.getDireita();
+                    }
+                    else if (eFilhoEsquerdo) {
+                        pai.setEsquerda(atual.getDireita());
+                    }
+                    else {
+                        pai.setDireita(atual.getDireita());
+                    }
+                }
+                else {
+                    //tem os 2 filhos
+                    //a sub-árvore da direita é "adotada" pelo nó pai
+                    if (atual == raiz) {
+                        raiz = atual.getDireita();
+                    }
+                    else if (eFilhoEsquerdo) {
+                        pai.setEsquerda(atual.getDireita());
+                    }
+                    else {
+                        pai.setDireita(atual.getDireita());
+                    }
+                    //a subárvore da esquerda é "adotada" pelo nó sucessor
+                    //sucessor é o menor entre os maiores (mais a esquerda da direita)
+                    No sucessor = atual.getDireita();
+                    while (sucessor.getEsquerda() != null) {
+                        sucessor = sucessor.getEsquerda();
+                    }
+                    sucessor.setEsquerda(atual.getEsquerda());
+                }
+                return true;
+            }
+            else if (x < atual.getInfo()) {
+                eFilhoEsquerdo = true;
+                pai = atual;
+                removeElementoRec(x, atual.getEsquerda(), pai, eFilhoEsquerdo);
+            }
+            else {
+                removeElementoRec(x, atual.getDireita(), atual, false);
+            }
+        }
+        return false;
+    }
 }
+

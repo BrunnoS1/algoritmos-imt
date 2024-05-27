@@ -26,5 +26,7 @@ public class TesteABB {
         else {
             System.out.println(x + " nao foi encontrado");
         }
+
+        System.out.println(abb.proximo(110));
     }
 }
