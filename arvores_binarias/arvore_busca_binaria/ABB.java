@@ -212,10 +212,10 @@ public class ABB {
             else if (x < atual.getInfo()) {
                 eFilhoEsquerdo = true;
                 pai = atual;
-                removeElementoRec(x, atual.getEsquerda(), pai, eFilhoEsquerdo);
+                return removeElementoRec(x, atual.getEsquerda(), pai, eFilhoEsquerdo);
             }
             else {
-                removeElementoRec(x, atual.getDireita(), atual, false);
+                return removeElementoRec(x, atual.getDireita(), atual, false);
             }
         }
         return false;
